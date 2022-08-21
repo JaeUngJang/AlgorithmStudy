@@ -17,8 +17,12 @@ namespace Jae
                 else
                     stack.Push(temp);
             }
+            
+            int sum = 0;
+            foreach (int n in stack)
+                sum += n;
 
-            Console.WriteLine(stack.Sum());
+            Console.WriteLine(sum);
         }
     }
 }
