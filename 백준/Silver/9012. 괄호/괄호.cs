@@ -14,25 +14,26 @@ namespace Jae
             {
                 char[] p = Console.ReadLine().ToCharArray();
                 bool valid = true;
-                Stack<char> stack = new Stack<char>();
+                int stack = 0;
                 for (int i = 0; i < p.Length; i++)
                 {
                     if (p[i] == '(')
                     {
-                        stack.Push(p[i]);
+                        stack++;
                     }
                     else if (p[i] == ')')
                     {
-                        if (stack.Count() == 0 || stack.Last() != '(')
+                        if (stack > 0)
+                            stack--;
+                        else
                         {
                             valid = false;
                             break;
                         }
-                        stack.Pop();
                     }
                 }
 
-                if (valid && stack.Count == 0)
+                if (valid && stack == 0)
                     sb.AppendLine("YES");
                 else
                     sb.AppendLine("NO");
