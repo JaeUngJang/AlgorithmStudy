@@ -20,23 +20,23 @@ public class Main {
 
         Integer max = Collections.max(ns);
         arr = new long[max];
-        tub(max);
 
         for (Integer n : ns) {
-            sb.append(arr[n-1] + "\n");
+            sb.append(memo(n-1) + "\n");
         }
 
         System.out.println(sb);
     }
     
-    public static void tub(int n) {
-        for (int i = 0; i < n; i++) {
-            if (i < 3) { arr[i] = 1L; }
-            else if (i < 5) { arr[i] = 2L; }
-            else {
-                arr[i] = arr[i-1] + arr[i-5];
-            }
+    public static Long memo(int n) {
+        if      (n < 3) { arr[n] = 1L; }
+        else if (n < 5) { arr[n] = 2L; }
+
+        if (arr[n] == 0) {
+            arr[n] = memo(n-1) + memo(n-5);
         }
+
+        return arr[n];
     }
 
 }
