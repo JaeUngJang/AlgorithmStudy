@@ -29,28 +29,29 @@ public class Main {
         result[0][2] = val[0][2];
 
 
-        int r = memo(N-1, 0);
-        int g = memo(N-1, 1);
-        int b = memo(N-1, 2);
+        tub(N);
 
-        int a = (r >= g) ? ((g >= b) ? b : g) : ((r >= b) ? b : r);
+        int r = result[N-1][0];
+        int g = result[N-1][1];
+        int b = result[N-1][2];
+        int min = (r >= g) ? ((g >= b) ? b : g) : ((r >= b) ? b : r);
 
-        sb.append(a);
+        sb.append(min);
         System.out.println(sb);
     }
     
-    public static int memo(int N, int rgb) {
-
-        if (result[N][rgb] == 0) {
-            if (rgb == 0) {
-                result[N][rgb] = ((memo(N-1, 1) >= memo(N-1, 2)) ? memo(N-1, 2) : memo(N-1, 1)) + val[N][rgb];
-            } else if (rgb == 1) {
-                result[N][rgb] = ((memo(N-1, 0) >= memo(N-1, 2)) ? memo(N-1, 2) : memo(N-1, 0)) + val[N][rgb];
-            } else if (rgb == 2) {
-                result[N][rgb] = ((memo(N-1, 0) >= memo(N-1, 1)) ? memo(N-1, 1) : memo(N-1, 0)) + val[N][rgb];
+    public static void tub(int N) {
+        for (int i = 1; i < N; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (j == 0) {
+                    result[i][j] = ((result[i-1][1] >= result[i - 1][2]) ? result[i - 1][2] : result[i-1][1]) + val[i][j];
+                } else if (j == 1) {
+                    result[i][j] = ((result[i-1][0] >= result[i - 1][2]) ? result[i - 1][2] : result[i-1][0]) + val[i][j];
+                } else if (j == 2) {
+                    result[i][j] = ((result[i-1][0] >= result[i - 1][1]) ? result[i - 1][1] : result[i-1][0]) + val[i][j];
+                }
             }
         }
-        return result[N][rgb];
     }
     
 }
